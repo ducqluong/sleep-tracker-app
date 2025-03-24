@@ -1,50 +1,32 @@
-import { useFormContext } from "react-hook-form";
+import { Typography, Box, Stack } from "@mui/material";
+import InputField from "./InputField";
 
 function BasicInfo() {
-  const { register } = useFormContext();
-
   return (
-    <>
-      <h2>Basic Information</h2>
+    <Box>
+      <Typography variant="h3" gutterBottom>
+        Basic Information
+      </Typography>
 
-      <label htmlFor="name">Name:</label>
-      <input type="text" id="name" {...register("name")} />
-      <br />
-      <br />
-
-      <label htmlFor="age">Age:</label>
-      <input type="number" id="age" {...register("age")} />
-      <br />
-      <br />
-
-      <label htmlFor="gender">Gender:</label>
-      <input type="text" id="gender" {...register("gender")} />
-      <br />
-      <br />
-
-      <label htmlFor="height">Height (cm):</label>
-      <input type="number" id="height" {...register("height")} />
-      <br />
-      <br />
-
-      <label htmlFor="weight">Weight (kg):</label>
-      <input type="number" id="weight" {...register("weight")} />
-      <br />
-      <br />
-
-      <label htmlFor="bedtime">Typical bedtime:</label>
-      <input type="time" id="bedtime" {...register("bedtime")} />
-      <br />
-      <br />
-
-      <label htmlFor="wakeup_time">Typical wakeup time:</label>
-      <input type="time" id="wakeup_time" {...register("wakeup_time")} />
-      <br />
-      <br />
-
-      <label htmlFor="avg_sleep">Average hours of sleep per night:</label>
-      <input type="number" id="avg_sleep" {...register("avg_sleep")} />
-    </>
+      <Stack spacing={2}>
+        <InputField id="name" label="Name" />
+        <InputField id="age" label="Age" type="number" />
+        <InputField id="gender" label="Gender" />
+        <InputField id="height" label="Height (cm)" type="number" />
+        <InputField id="weight" label="Weight (kg)" type="number" />
+        <InputField id="bedtime" label="Typical bedtime" type="time" />
+        <InputField
+          id="wakeup_time"
+          label="Typical wakeup time"
+          type="time"
+        />
+        <InputField
+          id="avg_sleep"
+          label="Average hours of sleep per night"
+          type="number"
+        />
+      </Stack>
+    </Box>
   );
 }
 

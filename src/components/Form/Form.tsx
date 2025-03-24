@@ -1,3 +1,4 @@
+import { Button, Typography, Stack, Box } from "@mui/material";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import BasicInfo from "./BasicInfo";
 import SleepGoals from "./SleepGoals";
@@ -32,18 +33,26 @@ function Form() {
   };
 
   return (
-    <>
-      <h1>Sleep Information Form</h1>
+    <Box
+      display="flex"
+      flexDirection="column"
+      sx={{ backgroundColor: "green" }}
+    >
+      <Typography variant="h2" gutterBottom>
+        Sleep Tracker
+      </Typography>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <BasicInfo />
-          <SleepGoals />
-          <br />
-          <br />
-          <input type="submit" value="Submit" />
+          <Stack spacing={2}>
+            <BasicInfo />
+            <SleepGoals />
+            <Button type="submit" variant="contained">
+              Submit
+            </Button>
+          </Stack>
         </form>
       </FormProvider>
-    </>
+    </Box>
   );
 }
 
