@@ -36,10 +36,16 @@ function Form() {
     <Box
       display="flex"
       flexDirection="column"
-      sx={{ backgroundColor: "green" }}
+      sx={{
+        width: "500px",
+        maxWidth: "90%",
+        height: "auto",
+        margin: "auto",
+        padding: "20px",
+      }}
     >
       <Typography variant="h2" gutterBottom>
-        Sleep Tracker
+        Input Form
       </Typography>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -25,12 +25,9 @@ const InputField = ({
       type={type}
       required={required}
       {...register(id)}
-      sx={{
-        "& .MuiInputLabel-root": {
-          color: "white", // Label color
-        },
-        "& .MuiInputBase-input": {
-          color: "white", // Input text color
+      slotProps={{
+        inputLabel: {
+          shrink: true,
         },
       }}
     />

@@ -1,17 +1,17 @@
-import Form from "./components/Form/Form";
-import { Box } from "@mui/material";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Homepage from "./components/Homepage/Homepage";
+import Form from "././components/Form/Form"; 
+import Dashboard from "././components/Dashboard/Dashboard"; 
 
 function App() {
   return (
-    <Box
-    // display="flex"
-    // justifyContent="center"
-    // alignItems="center"
-    // minHeight="100vh"
-    // minWidth="100wh"
-    >
-      <Form />
-    </Box>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
