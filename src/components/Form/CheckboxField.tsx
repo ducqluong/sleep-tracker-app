@@ -11,8 +11,9 @@ const CheckboxField = ({ id, label }: CheckboxFieldProps) => {
 
   return (
     <FormControlLabel
-      control={<Checkbox {...register(id)} />}
+      control={<Checkbox {...register(id)} className="checkboxField" />}
       label={label}
+      className="checkboxField"
     />
   );
 };

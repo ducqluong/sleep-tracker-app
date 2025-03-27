@@ -30,6 +30,7 @@ const InputField = ({
           shrink: true,
         },
       }}
+      className="textField"
     />
   );
 };
