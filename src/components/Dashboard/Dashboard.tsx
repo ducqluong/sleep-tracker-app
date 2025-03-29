@@ -1,14 +1,4 @@
-import {
-  Typography,
-  Box,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import { Typography, Box, Button, ButtonGroup } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -20,20 +10,10 @@ import {
   BarChart,
   Bar,
 } from "recharts";
+import { useState } from "react";
 
-interface SleepData {
-  name: string;
-  bedtime: string;
-  wakeupTime: string;
-}
-
-const mockSleepData: SleepData[] = [
-  { name: "Bob", bedtime: "22:00", wakeupTime: "06:30" },
-  { name: "Goku", bedtime: "23:30", wakeupTime: "07:00" },
-  { name: "Luffy", bedtime: "21:00", wakeupTime: "05:00" },
-];
-
-const sleepHoursData = [
+// Sample Data (expand this as needed)
+const sleepHoursDataWeek = [
   { day: "Monday", hours: 8 },
   { day: "Tuesday", hours: 7.5 },
   { day: "Wednesday", hours: 6 },
@@ -43,7 +23,7 @@ const sleepHoursData = [
   { day: "Sunday", hours: 7 },
 ];
 
-const bedtimeData = [
+const bedtimeDataWeek = [
   { day: "Monday", bedtime: "22:00" },
   { day: "Tuesday", bedtime: "22:30" },
   { day: "Wednesday", bedtime: "23:00" },
@@ -53,6 +33,24 @@ const bedtimeData = [
   { day: "Sunday", bedtime: "22:15" },
 ];
 
+const sleepHoursDataMonth = [
+  { day: "Week 1", hours: 7.5 },
+  { day: "Week 2", hours: 8 },
+  { day: "Week 3", hours: 6.5 },
+  { day: "Week 4", hours: 7 },
+];
+
+const bedtimeDataMonth = [
+  { day: "Week 1", bedtime: "22:15" },
+  { day: "Week 2", bedtime: "22:45" },
+  { day: "Week 3", bedtime: "23:15" },
+  { day: "Week 4", bedtime: "22:30" },
+];
+
+const sleepHoursDataDay = [{ day: "Today", hours: 7 }];
+
+const bedtimeDataDay = [{ day: "Today", bedtime: "22:30" }];
+
 // Convert bedtime to numerical value
 const convertBedtimeToNumber = (time: string) => {
   const [hours, minutes] = time.split(":").map(Number);
@@ -60,45 +58,52 @@ const convertBedtimeToNumber = (time: string) => {
   return totalHours < 12 ? totalHours + 24 : totalHours; // Add 24 to times after midnight
 };
 
-const bedtimeDataConverted = bedtimeData.map((entry) => ({
-  ...entry,
-  bedtime: convertBedtimeToNumber(entry.bedtime),
-}));
-
 function Dashboard() {
+  const [timePeriod, setTimePeriod] = useState("week"); // 'day', 'week', 'month'
+
+  const sleepHoursData =
+    timePeriod === "day"
+      ? sleepHoursDataDay
+      : timePeriod === "week"
+      ? sleepHoursDataWeek
+      : sleepHoursDataMonth;
+
+  const bedtimeData =
+    timePeriod === "day"
+      ? bedtimeDataDay
+      : timePeriod === "week"
+      ? bedtimeDataWeek
+      : bedtimeDataMonth;
+
+  const bedtimeDataConverted = bedtimeData.map((entry) => ({
+    ...entry,
+    bedtime: convertBedtimeToNumber(entry.bedtime),
+  }));
+
+  const xAxisDataKey = timePeriod === "week" ? "day" : "day";
+  
   return (
     <Box className="container">
       <Typography variant="h4" gutterBottom className="chartTitle">
         Sleep Dashboard
       </Typography>
 
-      <TableContainer component={Paper} className="table">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell className="tableCell">Name</TableCell>
-              <TableCell className="tableCell">Bedtime</TableCell>
-              <TableCell className="tableCell">Wakeup Time</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {mockSleepData.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell className="tableCell">{row.name}</TableCell>
-                <TableCell className="tableCell">{row.bedtime}</TableCell>
-                <TableCell className="tableCell">{row.wakeupTime}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <ButtonGroup
+        variant="contained"
+        aria-label="outlined primary button group"
+      >
+        <Button onClick={() => setTimePeriod("day")}>Day</Button>
+        <Button onClick={() => setTimePeriod("week")}>Week</Button>
+        <Button onClick={() => setTimePeriod("month")}>Month</Button>
+      </ButtonGroup>
 
       <Box className="chartContainer">
         <Typography variant="h5" gutterBottom className="chartTitle">
-          Hours of Sleep Per Day
+          Hours of Sleep Per{" "}
+          {timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)}
         </Typography>
         <BarChart
-          width={600}
+          width={700}
           height={300}
           data={sleepHoursData}
           margin={{
@@ -109,7 +114,7 @@ function Dashboard() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#444444" />
-          <XAxis dataKey="day" stroke="#ffffff" />
+          <XAxis dataKey={xAxisDataKey} stroke="#ffffff" />
           <YAxis stroke="#ffffff" />
           <Tooltip />
           <Legend />
@@ -119,10 +124,11 @@ function Dashboard() {
 
       <Box className="chartContainer">
         <Typography variant="h5" gutterBottom className="chartTitle">
-          Bedtime Over the Week
+          Bedtime Over the{" "}
+          {timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)}
         </Typography>
         <LineChart
-          width={600}
+          width={700}
           height={300}
           data={bedtimeDataConverted}
           margin={{
@@ -133,7 +139,7 @@ function Dashboard() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#444444" />
-          <XAxis dataKey="day" stroke="#ffffff" />
+          <XAxis dataKey={xAxisDataKey} stroke="#ffffff" />
           <YAxis stroke="#ffffff" />
           <Tooltip />
           <Legend />
