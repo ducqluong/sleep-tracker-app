@@ -5,7 +5,7 @@ import Dashboard from "././components/Dashboard/Dashboard";
 
 function App() {
   return (
-    <Router basename="/sleep-tracker-app">
+    <Router basename="/sleep-tracker-app/">
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/form" element={<Form />} />
