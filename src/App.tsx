@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./components/Homepage/Homepage";
-import Form from "././components/Form/Form"; 
-import Dashboard from "././components/Dashboard/Dashboard"; 
+import Form from "././components/Form/Form";
+import Dashboard from "././components/Dashboard/Dashboard";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/sleep-tracker-app">
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/form" element={<Form />} />
