@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/sleep-tracker-app",
+  base: "/sleep-tracker-app/",
   server: {
     port: 3000,
   },
