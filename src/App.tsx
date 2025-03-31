@@ -7,7 +7,7 @@ function App() {
   return (
     <Router basename="/sleep-tracker-app">
       <Routes>
-        <Route path="/homepage" element={<Homepage />} />
+        <Route path="/" element={<Homepage />} />
         <Route path="/form" element={<Form />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
